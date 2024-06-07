@@ -2,14 +2,21 @@
 import discord
 from discord.ext import commands
 
+import emoji
+import emoji.unicode_codes
+
 # define the bot's intentions, specifying it should recieve message content
 intents = discord.Intents.default()
 intents.message_content = True
 
 # initialize the bot with a command prefix and specified intents
-bot = commands.bot(command_prefix = '!arc ', intents = intents)
+bot = commands.Bot(command_prefix='!arc ', intents=intents)
 
-# Dictionary to store the emojis for reactions
+# Dictionary to store the default emojis for reactions
+# The key will be the emoji set name and the value will be a list of emojis
+default_reactions = ["🔥", "1️⃣", "2️⃣", "3️⃣", "4️⃣"]
+
+# Dictionary to store the emojis for reactions in each channel
 # The key will be the channel ID and the value will be a list of emojis
 reactions = {}
 
@@ -25,33 +32,17 @@ async def on_message(message):
   if message.author == bot.user:
     return
   
-  # if message.content.startswith('!arc react sort'):
-  #   # show the stuff
-  #   await ctx.send(f'current reaction order: {reactions[ctx.channel.id]}')
+  # Check if the channel has specified reactions, otherwise use default
+  emojis = reactions.get(message.channel.id, default_reactions)
 
-  #   # prompt for the new order
-  #   await ctx.send(f'please enter new order:')
+  # Add emojis to the message
+  for emoji in emojis:
+    await message.add_reaction(emoji)
 
-  #   # wait for the response
-  #   try:
-  #     order_message = await bot.wait_for('message', check=check, timeout=60)
-  #     #parse the order
-  #     emojis = order_message.content.split()
-  #     # update the reactions library
-  #     reactions[message.channel.id] = emojis
-
-  #     await message.channel.send(f'Order updated: {emojis}')
-
-  #   except TimeoutError:
-  #     await message.channel.send("Timeout: No response received.")
-
-  # if the channel has specified reactions, add them to the message
-  if message.channel.id in reactions:
-    for emoji in reactions[message.channel.id]:
-      await message.add_reaction(emoji)
-
-  # ensure other commands are processed
+  # Ensure other commands are processed
   await bot.process_commands(message)
+
+
 
 
 # Command to add an emoji to the reaction list for the current channel
@@ -64,6 +55,8 @@ async def add_emoji(ctx, emoji):
   #add the specified emoji to the channels reaction list
   reactions[ctx.channel.id].append(emoji)
   await ctx.send(f'Added {emoji} to reactions.')
+
+
 
 # command to remove an emoji from the reaction list for the current channel
 @bot.command(name='removeemoji')
@@ -89,44 +82,26 @@ async def list_emojis(ctx):
 
 
 
-
-# @bot.command(name = 'sortemojis')
-# async def sort_emoji():
-#   newSet = []
-
-#   for emoji in sortString:
-#     if emoji not in reactionSet:
-#       return
-#     newSet.append(emoji)
+@bot.command(name='react set')
+async def react_set(ctx):
+  #ensure message is not from bot
+  if ctx.author == bot.user:
+    return
   
-#   print(f'new order is {newSet}')
+  # get message content
+  message_content = ctx.message.content
 
-#   reactionSet = newSet
-#   return
+  #extract emojis from the message content
+  emojis = extract_emojis(message_content)
 
-
-# command comes in
-# command is sort
-# bot shows all the emojis FOR THAT CHANNEL and the order theyre in,
-# some method to sort them?
-
-
-# testLib = {
-#   123: ['2️⃣', '3️⃣', '1️⃣', '4️⃣', '5️⃣']
-# }
-
-# # command to manually sort the list
-# @bot.command(name='react sort')
-# async def react_sort(ctx):
-#   #retrive the list of emojis for the channel
-#   emojis = [emoji for emoji in ctx.channel.guild.emoji if not emoji.animated]
-
-#   # display the list of emojis
-#   # await ctx.send(f'current order: {emojis}')
-
-#   emoji_str = join(emojis)
-#   await ctx.send(f'{emoji_str}')
+  #update reactions dictionary with new emojis for the channel
+  reactions[ctx.channel.id] = emojis
+  
+  #send confirmation message
+  await ctx.send(f'Reactions updated for this channel: {emojis}')
 
 
 
-#   # read the responses, and establish the new order
+# helper function to extract emojis
+def extract_emojis(message_content):
+  return ''.join(c for c in message_content if c in emoji.UNICODE_EMOJI)
