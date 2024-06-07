@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 
 import emoji
-import emoji.unicode_codes
 
 # define the bot's intentions, specifying it should recieve message content
 intents = discord.Intents.default()
