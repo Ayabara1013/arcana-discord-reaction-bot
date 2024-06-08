@@ -1,0 +1,13 @@
+[Unit]
+Description=Arcana Discord Reaction Bot
+After=network.target
+
+[Service]
+Type=simple
+User=ec2-user
+WorkingDirectory=/path/to/your/bot/directory
+ExecStart=/usr/bin/python3 react-bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
