@@ -57,7 +57,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 # initialize the bot with a command prefix and specified intents
-bot = commands.Bot(command_prefix="/arc ", intents=intents)
+bot = commands.Bot(command_prefix=bot_command_prefix, intents=intents)
 
 # Dictionary to store the default emojis for reactions
 # The key will be the emoji set name and the value will be a list of emojis
