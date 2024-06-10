@@ -38,7 +38,8 @@ def get_secret():
 # Get the bot token from AWS Secrets Manager
 bot_token = get_secret()
 
-
+# Print the bot token
+print("Bot Token:", bot_token)
 
 
 # define the bot's intentions, specifying it should recieve message content
