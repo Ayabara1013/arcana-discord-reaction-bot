@@ -17,6 +17,8 @@ reaction_blocked_users = [arcana_react_bot_id]
 
 reaction_enabled_users = [midjourney_bot_id]
 
+e_fire = "🔥"
+
 
 # stuff for the secret? amazon gave it to me
 def get_secret():
@@ -82,7 +84,14 @@ async def on_message(message):
     return
   
 
-  await pin_fire(message)
+  # # Call the pin_fire function to handle pinning and responding to messages
+  # await pin_fire(message)
+
+  # Check if the message content is "hi" (case-insensitive)
+  if message.content.lower() == "hi":
+      # Your action here for when the message is just "hi"
+      await message.channel.send("Hello there!")
+
   
   # if not message.content.startswith(bot_command_prefix):
   #   # await message.channel.send('that was a command!')
@@ -106,18 +115,45 @@ async def on_message(message):
   
   # await message.channel.send('that was NOT a command! you got out properly!')
 
-## pin 🔥 messages
-async def pin_fire(message):
-  # Count the number of fire emojis
-  fire_count = 0
-  for reaction in message.reactions:
-    if str(reaction.emoji) == "🔥":
-      fire_count += reaction.count
+# ## pin 🔥 messages
+# async def pin_fire(message):
 
-  # If there are more than one fire emoji, pin the message
-  if fire_count > 1:
+#   print(f'you did a 🔥 fire')
+
+#   # Count the number of fire emojis
+#   fire_count = 0
+#   for reaction in message.reactions:
+#     if str(reaction.emoji) == "🔥":
+#       print(f'{fire_count} : {reaction.count}')
+#       fire_count += reaction.count
+
+
+#   # If there are more than one fire emoji, pin the message
+#   if fire_count > 1:
+#     # await message.pin()
+#     print(f'more than 1 fire is pinned')
+
+
+
+@bot.event
+async def on_raw_reaction_add(payload):
+  # Check if the reaction is added by the bot
+  if payload.user_id == bot.user.id:
+    return
+
+  # Fetch the necessary information using the payload
+  channel = await bot.fetch_channel(payload.channel_id)
+  message = await channel.fetch_message(payload.message_id)
+  user = await bot.fetch_user(payload.user_id)
+  emoji = payload.emoji
+
+  # Now you have all the necessary objects to work with
+  print(f"{user.name} reacted to message {message.id} with {payload.emoji}")
+
+  # # Check if the reaction is the fire emoji
+  if emoji.name == "🔥":
+    await channel.send(f"{user.name} reacted with 🔥")
     await message.pin()
-
 
 
 
