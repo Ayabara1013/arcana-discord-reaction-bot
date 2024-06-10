@@ -11,6 +11,9 @@ from botocore.exceptions import ClientError
 # allowed target users
 # allowed_target_users = [936929561302675456]
 midjourney_bot_id = 936929561302675456
+arcana_react_bot_id = 1248848353106726974
+
+reaction_blocked_users = [arcana_react_bot_id]
 
 
 # stuff for the secret? amazon gave it to me
@@ -76,9 +79,9 @@ async def on_message(message):
   if message.author == bot.user:
     return
   
-  elif bot_command_prefix in message.content:
-    return 
-  # elif message.author == midjourney_bot_id:
+  # elif message.author in reaction_blocked_users:
+  #   return 
+  # # elif message.author == midjourney_bot_id:
 
   elif message.author is not bot.user:
     # Check if the channel has specified reactions, otherwise use default
