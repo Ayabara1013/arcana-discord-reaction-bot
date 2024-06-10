@@ -8,6 +8,10 @@ from botocore.exceptions import ClientError
 
 ## ----- stuffs -----
 
+# allowed target users
+allowed_target_users = [936929561302675456]
+
+
 # stuff for the secret? amazon gave it to me
 def get_secret():
 
@@ -80,6 +84,10 @@ async def on_message(message):
   await bot.process_commands(message)
 
 
+# say hi
+@bot.command(name = 'sayh hi')
+async def say_hi(ctx):
+  await ctx.channel.send('hi!')
 
 
 # Command to add an emoji to the reaction list for the current channel
