@@ -82,7 +82,8 @@ async def on_message(message):
     return
   
 
-  # await pin_fire(message)
+  # Call the pin_fire function to handle pinning and responding to messages
+  await pin_fire(message)
 
   # Check if the message content is "hi" (case-insensitive)
   if message.content.lower() == "hi":
