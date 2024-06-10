@@ -1,0 +1,13 @@
+[Unit]
+Description=Discord Bot
+After=network.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/arcana-discord-reaction-bot
+ExecStart=/home/ec2-user/arcana-discord-reaction-bot/venv/bin/python3 /home/ec2-user/arcana-discord-reaction-bot/react-bot.py
+Restart=always
+Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target
