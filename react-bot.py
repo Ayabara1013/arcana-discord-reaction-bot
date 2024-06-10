@@ -83,16 +83,18 @@ async def on_message(message):
   #   # await message.channel.send('that was a command!')
   #   return
   
-  emojis = reactions.get(message.channel.id)
+  ## if the message doesnt start with the command
+  if not message.content.startswith("/arc "):
+    emojis = reactions.get(message.channel.id)
 
-  # If no reactions are specified for the channel, set it to the default reactions
-  if emojis is None:
-      reactions[message.channel.id] = default_reactions
-      emojis = default_reactions
+    # If no reactions are specified for the channel, set it to the default reactions
+    if emojis is None:
+        reactions[message.channel.id] = default_reactions
+        emojis = default_reactions
 
-  # Add emojis to the message
-  for emoji in emojis:
-    await message.add_reaction(emoji)
+    # Add emojis to the message
+    for emoji in emojis:
+      await message.add_reaction(emoji)
   
   # Ensure other commands are processed
   await bot.process_commands(message)
