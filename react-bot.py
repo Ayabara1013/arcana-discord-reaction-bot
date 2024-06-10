@@ -6,6 +6,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 
+## ----- stuffs -----
+
 # stuff for the secret? amazon gave it to me
 def get_secret():
 
