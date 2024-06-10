@@ -79,10 +79,29 @@ async def on_message(message):
   if message.author == bot.user:
     return
   
-  if message.content.startswith(bot_command_prefix):
-    await message.channel.send('that was a command!')
-  else:
-    await message.channel.send('that was NOT a command!')
+  if not message.content.startswith(bot_command_prefix):
+    # await message.channel.send('that was a command!')
+    return
+  
+  if message.author is not bot.user:
+    # Check if the channel has specified reactions, otherwise use default
+    # emojis = reactions.get(message.channel.id, default_reactions)
+
+    emojis = reactions.get(message.channel.id)
+
+    # If no reactions are specified for the channel, set it to the default reactions
+    if emojis is None:
+        reactions[message.channel.id] = default_reactions
+        emojis = default_reactions
+
+    # Add emojis to the message
+    for emoji in emojis:
+      await message.add_reaction(emoji)
+  
+  # Ensure other commands are processed
+  await bot.process_commands(message)
+  
+  # await message.channel.send('that was NOT a command! you got out properly!')
 
 
 
