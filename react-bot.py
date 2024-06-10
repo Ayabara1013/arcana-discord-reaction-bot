@@ -82,7 +82,13 @@ async def on_message(message):
     return
   
 
-  await pin_fire(message)
+  # await pin_fire(message)
+
+  # Check if the message content is "hi" (case-insensitive)
+  if message.content.lower() == "hi":
+      # Your action here for when the message is just "hi"
+      await message.channel.send("Hello there!")
+
   
   # if not message.content.startswith(bot_command_prefix):
   #   # await message.channel.send('that was a command!')
