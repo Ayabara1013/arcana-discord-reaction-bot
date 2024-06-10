@@ -67,25 +67,25 @@ async def on_ready():
   print(f'Bot is ready. logged in as {bot.user}')
 
 # event handler for when a message is sent in the channel
-@bot.event
-async def on_message(message):
-  #ignore messages sent by the bot itself to prevent a loop
-  if message.author == bot.user:
-    return
+# @bot.event
+# async def on_message(message):
+#   #ignore messages sent by the bot itself to prevent a loop
+#   if message.author == bot.user:
+#     return
   
-  # Check if the channel has specified reactions, otherwise use default
-  emojis = reactions.get(message.channel.id, default_reactions)
+#   # Check if the channel has specified reactions, otherwise use default
+#   emojis = reactions.get(message.channel.id, default_reactions)
 
-  # Add emojis to the message
-  for emoji in emojis:
-    await message.add_reaction(emoji)
+#   # Add emojis to the message
+#   for emoji in emojis:
+#     await message.add_reaction(emoji)
 
-  # Ensure other commands are processed
-  await bot.process_commands(message)
+#   # Ensure other commands are processed
+#   await bot.process_commands(message)
 
 
 # say hi
-@bot.command(name = 'sayh hi')
+@bot.command(name = 'say hi')
 async def say_hi(ctx):
   await ctx.channel.send('hi!')
 
