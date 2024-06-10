@@ -78,13 +78,6 @@ async def on_message(message):
   #ignore messages sent by the bot itself to prevent a loop
   if message.author == bot.user:
     return
-  
-  # elif message.author in reaction_blocked_users:
-  #   return 
-  # # elif message.author == midjourney_bot_id:
-
-  if message.content.startswith(bot_command_prefix):
-    return
 
   elif message.author is not bot.user:
     # Check if the channel has specified reactions, otherwise use default
