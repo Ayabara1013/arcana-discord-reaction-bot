@@ -153,6 +153,7 @@ async def on_raw_reaction_add(payload):
   # # Check if the reaction is the fire emoji
   if emoji.name == "🔥":
     await channel.send(f"{user.name} reacted with 🔥")
+    await message.pin()
 
 
 
