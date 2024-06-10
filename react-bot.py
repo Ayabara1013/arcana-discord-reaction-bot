@@ -74,7 +74,7 @@ async def on_message(message):
   if message.author == bot.user:
     return
   
-  elif message.author = midjourney_bot_id:
+  elif message.author == midjourney_bot_id:
     # Check if the channel has specified reactions, otherwise use default
     emojis = reactions.get(message.channel.id, default_reactions)
     ###### INSTEAD add the defaults TO thechannel!
