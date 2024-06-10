@@ -117,17 +117,19 @@ async def on_message(message):
 async def pin_fire(message):
   if "hi" in message.content:
     print(f'you did a 🔥 fire')
-    await message.send("you did a 🔥")
 
   # Count the number of fire emojis
   fire_count = 0
   for reaction in message.reactions:
     if str(reaction.emoji) == "🔥":
+      print(f'{fire_count} : {reaction.count}')
       fire_count += reaction.count
+
 
   # If there are more than one fire emoji, pin the message
   if fire_count > 1:
-    await message.pin()
+    # await message.pin()
+    print(f'more than 1 fire is pinned')
 
 
 
