@@ -145,7 +145,7 @@ async def on_raw_reaction_add(payload):
   channel = await bot.fetch_channel(payload.channel_id)
   message = await channel.fetch_message(payload.message_id)
   user = await bot.fetch_user(payload.user_id)
-  # emoji = payload.emoji
+  emoji = payload.emoji
 
   # Now you have all the necessary objects to work with
   print(f"{user.name} reacted to message {message.id} with {payload.emoji}")
