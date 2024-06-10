@@ -74,7 +74,9 @@ async def on_message(message):
   if message.author == bot.user:
     return
   
-  elif message.author == midjourney_bot_id:
+  # elif message.author == midjourney_bot_id:
+
+  elif message.author is not bot.user:
     # Check if the channel has specified reactions, otherwise use default
     # emojis = reactions.get(message.channel.id, default_reactions)
 
@@ -122,6 +124,10 @@ async def remove_emoji(ctx, emoji):
     await ctx.send(f'Removed {emoji} from reactions.')
   else:
     await ctx.send(f'{emoji} not found in reactions.')
+  
+# If the channel has no reactions left, remove it from the reactions dictionary
+  if ctx.channel.id in reactions and not reactions[ctx.channel.id]:
+      reactions.pop(ctx.channel.id)
 
 
 
@@ -144,17 +150,17 @@ async def react_option(ctx, option):
   if ctx.author == bot.user:
     return
   
-  if option == 'set':
+  if option is None:
+    await ctx.send("dude you have to tell me something here...")
+
+  elif option == 'set':
     await ctx.send('react set command triggered!')
     # get message content
     message_content = ctx.message.content
-
     #extract emojis from the message content
     emojis = extract_emojis(message_content)
-
     #update reactions dictionary with new emojis for the channel
     reactions[ctx.channel.id] = emojis
-    
     #send confirmation message
     await ctx.send(f'Reactions updated for this channel: {emojis}')
 
