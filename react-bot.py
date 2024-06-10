@@ -15,6 +15,8 @@ arcana_react_bot_id = 1248848353106726974
 
 reaction_blocked_users = [arcana_react_bot_id]
 
+reaction_enabled_users = [midjourney_bot_id]
+
 
 # stuff for the secret? amazon gave it to me
 def get_secret():
@@ -84,7 +86,7 @@ async def on_message(message):
   #   return
   
   ## if the message doesnt start with the command
-  if not message.content.startswith(bot_command_prefix):
+  if not message.content.startswith(bot_command_prefix) and message.author.id in reaction_enabled_users:
     emojis = reactions.get(message.channel.id)
 
     # If no reactions are specified for the channel, set it to the default reactions
