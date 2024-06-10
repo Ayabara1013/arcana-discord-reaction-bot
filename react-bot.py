@@ -108,6 +108,10 @@ async def on_message(message):
 
 ## pin 🔥 messages
 async def pin_fire(message):
+  if "hi" in message.content:
+    print(f'you did a 🔥 fire')
+    await message.send("you did a 🔥")
+
   # Count the number of fire emojis
   fire_count = 0
   for reaction in message.reactions:
