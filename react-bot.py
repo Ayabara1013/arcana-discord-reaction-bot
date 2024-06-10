@@ -82,8 +82,8 @@ async def on_message(message):
     return
   
 
-  # Call the pin_fire function to handle pinning and responding to messages
-  await pin_fire(message)
+  # # Call the pin_fire function to handle pinning and responding to messages
+  # await pin_fire(message)
 
   # Check if the message content is "hi" (case-insensitive)
   if message.content.lower() == "hi":
@@ -113,25 +113,35 @@ async def on_message(message):
   
   # await message.channel.send('that was NOT a command! you got out properly!')
 
-## pin 🔥 messages
-async def pin_fire(message):
-  if "hi" in message.content:
-    print(f'you did a 🔥 fire')
+# ## pin 🔥 messages
+# async def pin_fire(message):
 
-  # Count the number of fire emojis
-  fire_count = 0
-  for reaction in message.reactions:
-    if str(reaction.emoji) == "🔥":
-      print(f'{fire_count} : {reaction.count}')
-      fire_count += reaction.count
+#   print(f'you did a 🔥 fire')
 
-
-  # If there are more than one fire emoji, pin the message
-  if fire_count > 1:
-    # await message.pin()
-    print(f'more than 1 fire is pinned')
+#   # Count the number of fire emojis
+#   fire_count = 0
+#   for reaction in message.reactions:
+#     if str(reaction.emoji) == "🔥":
+#       print(f'{fire_count} : {reaction.count}')
+#       fire_count += reaction.count
 
 
+#   # If there are more than one fire emoji, pin the message
+#   if fire_count > 1:
+#     # await message.pin()
+#     print(f'more than 1 fire is pinned')
+
+
+
+@bot.event
+async def on_reaction_change(reaction, user):
+  # check if the reacif user == bot.user:
+  if user == bot.user:
+    return
+  
+  #check if the reaction is made with the fire emoji
+  if str(reaction.emoji) == "🔥":
+    print(f'{user.name} reacted with 🔥')
 
 
 # say hi
