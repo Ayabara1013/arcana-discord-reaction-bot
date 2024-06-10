@@ -52,7 +52,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 # initialize the bot with a command prefix and specified intents
-bot = commands.Bot(command_prefix='!arc ', intents=intents)
+bot = commands.Bot(command_prefix='/arc ', intents=intents)
 
 # Dictionary to store the default emojis for reactions
 # The key will be the emoji set name and the value will be a list of emojis
@@ -76,8 +76,14 @@ async def on_message(message):
   
   elif message.author == midjourney_bot_id:
     # Check if the channel has specified reactions, otherwise use default
-    emojis = reactions.get(message.channel.id, default_reactions)
-    ###### INSTEAD add the defaults TO thechannel!
+    # emojis = reactions.get(message.channel.id, default_reactions)
+
+    emojis = reactions.get(message.channel.id)
+
+    # If no reactions are specified for the channel, set it to the default reactions
+    if emojis is None:
+        reactions[message.channel.id] = default_reactions
+        emojis = default_reactions
 
     # Add emojis to the message
     for emoji in emojis:
@@ -140,20 +146,25 @@ async def react_option(ctx, option):
   
   if option == 'set':
     await ctx.send('react set command triggered!')
+    # get message content
+    message_content = ctx.message.content
 
+    #extract emojis from the message content
+    emojis = extract_emojis(message_content)
+
+    #update reactions dictionary with new emojis for the channel
+    reactions[ctx.channel.id] = emojis
+    
+    #send confirmation message
+    await ctx.send(f'Reactions updated for this channel: {emojis}')
+
+  ## NOPE CASE
   elif option == 'nope':
     await ctx.send('nope!')
-  # # get message content
-  # message_content = ctx.message.content
 
-  # #extract emojis from the message content
-  # emojis = extract_emojis(message_content)
-
-  # #update reactions dictionary with new emojis for the channel
-  # reactions[ctx.channel.id] = emojis
-  
-  # #send confirmation message
-  # await ctx.send(f'Reactions updated for this channel: {emojis}')
+  ## TEST CASE
+  elif option =='test':
+    await ctx.send('test successful! probably')
 
 
 
