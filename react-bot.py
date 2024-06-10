@@ -136,7 +136,7 @@ async def on_message(message):
 
 
 @bot.event
-async def on_raw_reaction_add(reaction, user):
+async def on_reaction_add(reaction, user):
   # Check if the reaction is added by the bot
   if user == bot.user:
     return
