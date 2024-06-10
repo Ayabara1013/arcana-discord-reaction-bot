@@ -136,7 +136,9 @@ async def on_message(message):
 
 
 @bot.event
-async def on_reaction_add(reaction, user):
+async def on_raw_reaction_add(reaction, user):
+  print(f'sent')
+
   if str(reaction.emoji) == str(e_fire):
     print(f'fire sent!')
 
