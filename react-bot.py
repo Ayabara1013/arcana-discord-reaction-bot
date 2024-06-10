@@ -78,25 +78,12 @@ async def on_message(message):
   #ignore messages sent by the bot itself to prevent a loop
   if message.author == bot.user:
     return
-
-  elif message.author is not bot.user:
-    # Check if the channel has specified reactions, otherwise use default
-    # emojis = reactions.get(message.channel.id, default_reactions)
-
-    emojis = reactions.get(message.channel.id)
-
-    # If no reactions are specified for the channel, set it to the default reactions
-    if emojis is None:
-        reactions[message.channel.id] = default_reactions
-        emojis = default_reactions
-
-    # Add emojis to the message
-    for emoji in emojis:
-      await message.add_reaction(emoji)
   
+  if message.content.startswith(bot_command_prefix):
+    await message.channel.send('that was a command!')
+  else:
+    await message.channel.send('that was NOT a command!')
 
-  # Ensure other commands are processed
-  await bot.process_commands(message)
 
 
 # say hi
