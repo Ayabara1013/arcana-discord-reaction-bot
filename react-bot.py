@@ -84,7 +84,7 @@ async def on_message(message):
   #   return
   
   ## if the message doesnt start with the command
-  if not message.content.startswith("/arc "):
+  if not message.content.startswith(bot_command_prefix):
     emojis = reactions.get(message.channel.id)
 
     # If no reactions are specified for the channel, set it to the default reactions
