@@ -81,6 +81,9 @@ async def on_message(message):
   if message.author == bot.user:
     return
   
+
+  await pin_fire(message)
+  
   # if not message.content.startswith(bot_command_prefix):
   #   # await message.channel.send('that was a command!')
   #   return
@@ -102,6 +105,19 @@ async def on_message(message):
   await bot.process_commands(message)
   
   # await message.channel.send('that was NOT a command! you got out properly!')
+
+## pin 🔥 messages
+async def pin_fire(message):
+  # Count the number of fire emojis
+  fire_count = 0
+  for reaction in message.reactions:
+    if str(reaction.emoji) == "🔥":
+      fire_count += reaction.count
+
+  # If there are more than one fire emoji, pin the message
+  if fire_count > 1:
+    await message.pin()
+
 
 
 
