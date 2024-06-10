@@ -136,23 +136,19 @@ async def on_message(message):
 
 
 @bot.event
-async def on_reaction_add(reaction, user):
+async def on_raw_reaction_add(payload):
   # Check if the reaction is added by the bot
-  if user == bot.user:
+  if payload.user_id == bot.user.id:
     return
 
-  print(f'sent')
+  # Fetch the necessary information using the payload
+  channel = await bot.fetch_channel(payload.channel_id)
+  message = await channel.fetch_message(payload.message_id)
+  user = await bot.fetch_user(payload.user_id)
 
-  if str(reaction.emoji) == str(e_fire):
-    print(f'fire sent!')
+  # Now you have all the necessary objects to work with
+  print(f"{user.name} reacted to message {message.id} with {payload.emoji}")
 
-  # # check if the reacif user == bot.user:
-  # if user == bot.user:
-  #   return
-  
-  # #check if the reaction is made with the fire emoji
-  # if str(reaction.emoji) == "🔥":
-  #   print(f'{user.name} reacted with 🔥')
 
 
 # say hi
