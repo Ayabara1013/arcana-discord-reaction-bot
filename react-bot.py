@@ -83,7 +83,7 @@ async def on_message(message):
   #   return 
   # # elif message.author == midjourney_bot_id:
 
-  elif bot_command_prefix in message.content:
+  if message.content.startswith(bot_command_prefix):
     return
 
   elif message.author is not bot.user:
