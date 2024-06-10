@@ -14,11 +14,12 @@ midjourney_bot_id = 936929561302675456
 arcana_react_bot_id = 1248848353106726974
 
 reaction_blocked_users = [arcana_react_bot_id]
-
 reaction_enabled_users = [midjourney_bot_id]
 
+bot_command_prefix = "/arc "
 e_fire = "🔥"
 
+# --------------------------------------------------
 
 # stuff for the secret? amazon gave it to me
 def get_secret():
@@ -45,16 +46,13 @@ def get_secret():
     secret = get_secret_value_response['SecretString']
     return secret
 
-
-
 # Get the bot token from AWS Secrets Manager
 bot_token = get_secret()
 
 # Print the bot token
 print("Bot Token:", bot_token)
 
-
-bot_command_prefix = "/arc "
+# --------------------------------------------------
 
 # define the bot's intentions, specifying it should recieve message content
 intents = discord.Intents.default()
@@ -82,20 +80,11 @@ async def on_message(message):
   #ignore messages sent by the bot itself to prevent a loop
   if message.author == bot.user:
     return
-  
-
-  # # Call the pin_fire function to handle pinning and responding to messages
-  # await pin_fire(message)
 
   # Check if the message content is "hi" (case-insensitive)
   if message.content.lower() == "hi":
       # Your action here for when the message is just "hi"
       await message.channel.send("Hello there!")
-
-  
-  # if not message.content.startswith(bot_command_prefix):
-  #   # await message.channel.send('that was a command!')
-  #   return
   
   ## if the message doesnt start with the command
   if not message.content.startswith(bot_command_prefix) and message.author.id in reaction_enabled_users:
@@ -112,28 +101,8 @@ async def on_message(message):
   
   # Ensure other commands are processed
   await bot.process_commands(message)
-  
-  # await message.channel.send('that was NOT a command! you got out properly!')
 
-# ## pin 🔥 messages
-# async def pin_fire(message):
-
-#   print(f'you did a 🔥 fire')
-
-#   # Count the number of fire emojis
-#   fire_count = 0
-#   for reaction in message.reactions:
-#     if str(reaction.emoji) == "🔥":
-#       print(f'{fire_count} : {reaction.count}')
-#       fire_count += reaction.count
-
-
-#   # If there are more than one fire emoji, pin the message
-#   if fire_count > 1:
-#     # await message.pin()
-#     print(f'more than 1 fire is pinned')
-
-
+# --------------------------------------------------
 
 @bot.event
 async def on_raw_reaction_add(payload):
@@ -155,13 +124,14 @@ async def on_raw_reaction_add(payload):
     await channel.send(f"{user.name} reacted with 🔥")
     await message.pin()
 
-
+# --------------------------------------------------
 
 # say hi
 @bot.command(name = 'sayhi')
 async def say_hi(ctx):
   await ctx.channel.send('hi!')
 
+# --------------------------------------------------
 
 # Command to add an emoji to the reaction list for the current channel
 @bot.command(name = 'add')
@@ -174,7 +144,7 @@ async def add_emoji(ctx, emoji):
   reactions[ctx.channel.id].append(emoji)
   await ctx.send(f'Added {emoji} to reactions.')
 
-
+# --------------------------------------------------
 
 # command to remove an emoji from the reaction list for the current channel
 @bot.command(name='remove')
@@ -190,7 +160,7 @@ async def remove_emoji(ctx, emoji):
   if ctx.channel.id in reactions and not reactions[ctx.channel.id]:
       reactions.pop(ctx.channel.id)
 
-
+# --------------------------------------------------
 
 # Command to list the current emojis in the reaction list for the current channel
 @bot.command(name='list')
@@ -201,8 +171,7 @@ async def list_emojis(ctx):
     else:
         await ctx.send('No emojis configured for this channel.')
 
-
-
+# --------------------------------------------------
 
 ## verbose react command set
 @bot.command(name='react', pass_context = True)
@@ -233,12 +202,13 @@ async def react_option(ctx, option):
   elif option =='test':
     await ctx.send('test successful! probably')
 
-
+# --------------------------------------------------
 
 # helper function to extract emojis
 def extract_emojis(message_content):
   return ''.join(c for c in message_content if c in emoji.UNICODE_EMOJI)
 
+# --------------------------------------------------
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
 bot.run(bot_token)
