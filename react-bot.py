@@ -9,7 +9,8 @@ from botocore.exceptions import ClientError
 ## ----- stuffs -----
 
 # allowed target users
-allowed_target_users = [936929561302675456]
+# allowed_target_users = [936929561302675456]
+midjourney_bot_id = 936929561302675456
 
 
 # stuff for the secret? amazon gave it to me
@@ -66,32 +67,35 @@ reactions = {}
 async def on_ready():
   print(f'Bot is ready. logged in as {bot.user}')
 
-# event handler for when a message is sent in the channel
-# @bot.event
-# async def on_message(message):
-#   #ignore messages sent by the bot itself to prevent a loop
-#   if message.author == bot.user:
-#     return
+#event handler for when a message is sent in the channel
+@bot.event
+async def on_message(message):
+  #ignore messages sent by the bot itself to prevent a loop
+  if message.author == bot.user:
+    return
   
-#   # Check if the channel has specified reactions, otherwise use default
-#   emojis = reactions.get(message.channel.id, default_reactions)
+  elif message.author = midjourney_bot_id:
+    # Check if the channel has specified reactions, otherwise use default
+    emojis = reactions.get(message.channel.id, default_reactions)
+    ###### INSTEAD add the defaults TO thechannel!
 
-#   # Add emojis to the message
-#   for emoji in emojis:
-#     await message.add_reaction(emoji)
+    # Add emojis to the message
+    for emoji in emojis:
+      await message.add_reaction(emoji)
+  
 
-#   # Ensure other commands are processed
-#   await bot.process_commands(message)
+  # Ensure other commands are processed
+  await bot.process_commands(message)
 
 
 # say hi
-@bot.command(name = 'say hi')
+@bot.command(name = 'sayhi')
 async def say_hi(ctx):
   await ctx.channel.send('hi!')
 
 
 # Command to add an emoji to the reaction list for the current channel
-@bot.command(name = 'addemoji')
+@bot.command(name = 'add')
 async def add_emoji(ctx, emoji):
   #if the channel is not in the reactions dictionary, add it
   if ctx.channel.id not in reactions:
@@ -104,7 +108,7 @@ async def add_emoji(ctx, emoji):
 
 
 # command to remove an emoji from the reaction list for the current channel
-@bot.command(name='removeemoji')
+@bot.command(name='remove')
 async def remove_emoji(ctx, emoji):
   # check if the channel and emoji are in the reactions dictionary
   if ctx.channel.id in reactions and emoji in reactions[ctx.channel.id]:
@@ -116,7 +120,7 @@ async def remove_emoji(ctx, emoji):
 
 
 # Command to list the current emojis in the reaction list for the current channel
-@bot.command(name='listemojis')
+@bot.command(name='list')
 async def list_emojis(ctx):
     # Check if the channel has any reactions configured
     if ctx.channel.id in reactions:
@@ -127,7 +131,7 @@ async def list_emojis(ctx):
 
 
 
-@bot.command(name='react set')
+@bot.command(name='reactset')
 async def react_set(ctx):
   #ensure message is not from bot
   if ctx.author == bot.user:
