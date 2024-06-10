@@ -17,6 +17,8 @@ reaction_blocked_users = [arcana_react_bot_id]
 
 reaction_enabled_users = [midjourney_bot_id]
 
+e_fire = "🔥"
+
 
 # stuff for the secret? amazon gave it to me
 def get_secret():
@@ -135,13 +137,16 @@ async def on_message(message):
 
 @bot.event
 async def on_reaction_change(reaction, user):
-  # check if the reacif user == bot.user:
-  if user == bot.user:
-    return
+  if str(reaction.emoji == e_fire):
+    print(f'fire sent!')
+
+  # # check if the reacif user == bot.user:
+  # if user == bot.user:
+  #   return
   
-  #check if the reaction is made with the fire emoji
-  if str(reaction.emoji) == "🔥":
-    print(f'{user.name} reacted with 🔥')
+  # #check if the reaction is made with the fire emoji
+  # if str(reaction.emoji) == "🔥":
+  #   print(f'{user.name} reacted with 🔥')
 
 
 # say hi
