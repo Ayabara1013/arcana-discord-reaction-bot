@@ -131,7 +131,7 @@ async def list_emojis(ctx):
 
 
 
-@bot.command(name='reactset')
+@bot.command(name='react\tset')
 async def react_set(ctx):
   #ensure message is not from bot
   if ctx.author == bot.user:
