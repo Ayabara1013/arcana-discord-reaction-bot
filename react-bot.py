@@ -131,23 +131,29 @@ async def list_emojis(ctx):
 
 
 
-@bot.command(name='react\tset')
-async def react_set(ctx):
+## verbose react command set
+@bot.command(name='react', pass_context = True)
+async def react_option(ctx, option):
   #ensure message is not from bot
   if ctx.author == bot.user:
     return
   
-  # get message content
-  message_content = ctx.message.content
+  if option == 'set':
+    await ctx.send('react set command triggered!')
 
-  #extract emojis from the message content
-  emojis = extract_emojis(message_content)
+  elif option == 'nope':
+    await ctx.send('nope!')
+  # # get message content
+  # message_content = ctx.message.content
 
-  #update reactions dictionary with new emojis for the channel
-  reactions[ctx.channel.id] = emojis
+  # #extract emojis from the message content
+  # emojis = extract_emojis(message_content)
+
+  # #update reactions dictionary with new emojis for the channel
+  # reactions[ctx.channel.id] = emojis
   
-  #send confirmation message
-  await ctx.send(f'Reactions updated for this channel: {emojis}')
+  # #send confirmation message
+  # await ctx.send(f'Reactions updated for this channel: {emojis}')
 
 
 
