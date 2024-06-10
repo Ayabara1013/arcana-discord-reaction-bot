@@ -137,7 +137,7 @@ async def on_message(message):
 
 @bot.event
 async def on_reaction_change(reaction, user):
-  if str(reaction.emoji == e_fire):
+  if str(reaction.emoji) == str(e_fire):
     print(f'fire sent!')
 
   # # check if the reacif user == bot.user:
