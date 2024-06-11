@@ -37,7 +37,15 @@ async def manage_channels(arg1):
     # }
 
 ## create alias canon channels
-
+@bot.command(name = 'createlorechannel')
+async def create_lore_channel(message, name):
+  if not guild.channel:
+    
+    if name:
+      await guild.create_text_channel(name)
+    else: 
+      await guild.create_text_channel(str(message.channel) + '-lore')
+  
 
 
 ## set turn
