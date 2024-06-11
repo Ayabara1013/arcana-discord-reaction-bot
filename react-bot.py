@@ -60,9 +60,13 @@ intents.message_content = True
 
 # initialize the bot with a command prefix and specified intents
 bot = commands.Bot(command_prefix=bot_command_prefix, intents=intents)
+
+# Dictionary to store the default emojis for reactions
+# The key will be the emoji set name and the value will be a list of emojis
+default_reactions = ["🔥", "1️⃣", "2️⃣", "3️⃣", "4️⃣"]
+
 # Dictionary to store the emojis for reactions in each channel
 # The key will be the channel ID and the value will be a list of emojis
-default_reactions = ["🔥", "1️⃣", "2️⃣", "3️⃣", "4️⃣"]
 reactions = {}
 
 #event handler for when the bot is ready
