@@ -57,6 +57,7 @@ bot = commands.Bot(command_prefix=bot_command_prefix, intents=intents)
 @bot.event
 async def on_ready():
   print(f'Bot is ready. logged in as {bot.user}')
+  await load_extensions()
 
 @bot.event
 async def on_message(message):
@@ -81,7 +82,7 @@ async def bot_test(ctx):
 
 # load the cog (extension)
 async def load_extensions():
-  print('runnung load_extensions')
+  print('running load_extensions')
   initial_extensions = ['cogs.react-bot'] # Note: 'cogs.react-bot' is the module path
 
   for extension in initial_extensions:
@@ -93,9 +94,9 @@ async def load_extensions():
 
 # Asyncronous main function to run the bot
 async def main():
-  print('runnung main')
+  print('running main')
   await bot.start(bot_token)
-  await load_extensions()
+  
 
 
 
