@@ -1,11 +1,12 @@
 import discord
 from discord.ext import commands
-import asyncio
 import boto3
 from botocore.exceptions import ClientError
 import os
 
 bot_command_prefix = "/arc "
+
+print("\n\n\n\n\nStarting Arcana Bot...")
 
 # --------------------------------------------------
 
