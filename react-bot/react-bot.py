@@ -22,6 +22,8 @@ class ReactBot(commands.Cog):
 
   @commands.Cog.listener()
   async def on_message(self, message):
+    print('a message was sent')
+
     #ignore messages sent by the bot itself to prevent a loop
     if message.author == self.bot.user:
       return
