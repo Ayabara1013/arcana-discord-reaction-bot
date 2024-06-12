@@ -81,6 +81,7 @@ async def bot_test(ctx):
 
 # load the cog (extension)
 async def load_extensions():
+  print('runnung load_extensions')
   initial_extensions = ['cogs.react-bot'] # Note: 'cogs.react-bot' is the module path
 
   for extension in initial_extensions:
@@ -92,8 +93,12 @@ async def load_extensions():
 
 # Asyncronous main function to run the bot
 async def main():
+  print('runnung main')
   await bot.start(bot_token)
   await load_extensions()
+
+
+
 
 # Run the bot using asyncio.run (Python 3.7+)
 if __name__ == '__main__':
