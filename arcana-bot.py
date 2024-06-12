@@ -47,8 +47,8 @@ intents.message_content = True
 intents.reactions = True
 
 
-#initialize the bot 
-bot = commands.Bot(command_prefix = bot_command_prefix, intents = intents)
+# initialize the bot with a command prefix and specified intents
+bot = commands.Bot(command_prefix=bot_command_prefix, intents=intents)
 
 
 #event handler for when the bot is ready
