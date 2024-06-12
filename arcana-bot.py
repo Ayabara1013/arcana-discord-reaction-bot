@@ -78,17 +78,16 @@ async def bot_test(message):
   await message.channel.send('test successful from arcana-bot.py')
 
 
-# # load cogs
-# initial_extensions = [
-#   'cogs.react-bot',
-#   # 'tavern-bot.tavern_bot'
-# ]
+# Load the cog (extension)
+initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module path
 
-bot.load_extensions('cogs.react-bot')
-
-# if __name__ == '__main__':
-#   for extension in initial_extensions:
-#     client.load_extension(extension)
+if __name__ == '__main__':
+    for extension in initial_extensions:
+        try:
+            bot.load_extension(extension)
+            print(f'Loaded extension: {extension}')
+        except Exception as e:
+            print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
 
 
 # Run the bot
