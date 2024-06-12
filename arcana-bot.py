@@ -85,7 +85,7 @@ initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module 
 if __name__ == '__main__':
   for extension in initial_extensions:
     try:
-      bot.load_extension(extension)
+      await bot.load_extension(extension)
       print(f'Loaded extension: {extension}')
     except Exception as e:
       print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
