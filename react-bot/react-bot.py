@@ -108,5 +108,15 @@ class ReactBot(commands.Cog):
   # --------------------------------------------------
 
 
+  @commands.command(name='test')
+  async def on_test(self, ctx):
+    print('a message was sent')
+
+    #ignore messages sent by the bot itself to prevent a loop
+    if ctx.author == self.bot.user:
+      return
+    
+    await ctx.channel.send('test successful from react-bot.py')
+
 def setup(bot):
   bot.add_cog(ReactBot(bot))

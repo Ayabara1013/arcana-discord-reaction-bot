@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import asyncio
 import boto3
 from botocore.exceptions import ClientError
 import os
@@ -68,16 +69,26 @@ async def on_message(message):
   await bot.process_commands(message)
 
 
+
+@bot.command(name='test')
+async def bot_test(message):
+  if message.author == bot.user:
+    return
+  
+  await message.channel.send('test successful from arcana-bot.py')
+
+
 # load cogs
 initial_extensions = [
   'react-bot.react-bot',
   # 'tavern-bot.tavern_bot'
 ]
 
+bot.load_extensions('react-bot.react-bot')
 
-if __name__ == '__main__':
-  for extension in initial_extensions:
-    bot.load_extension(extension)
+# if __name__ == '__main__':
+#   for extension in initial_extensions:
+#     client.load_extension(extension)
 
 
 # Run the bot
