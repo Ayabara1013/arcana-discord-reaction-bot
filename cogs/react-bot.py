@@ -10,7 +10,7 @@ arcana_react_bot_id = 1248848353106726974
 reaction_blocked_users = [arcana_react_bot_id]
 reaction_enabled_users = {midjourney_bot_id}
 
-
+print('react-bot loaded')
 
 class ReactBot(commands.Cog):
   def __init__(self, bot):
