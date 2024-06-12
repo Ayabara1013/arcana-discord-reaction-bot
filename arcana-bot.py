@@ -6,7 +6,7 @@ import os
 
 bot_command_prefix = "/arc "
 
-print("\n\n\n\n\nStarting Arcana Bot...")
+print("\n\n\nStarting Arcana Bot...\n\n\n")
 
 # --------------------------------------------------
 
@@ -39,7 +39,7 @@ def get_secret():
 bot_token = get_secret()
 
 # Print the bot token
-print("Bot Token:", bot_token)
+print("Bot Token:", bot_token, "\n\n\n")
 
 # --------------------------------------------------
 
