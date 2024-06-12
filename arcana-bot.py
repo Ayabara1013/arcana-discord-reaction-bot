@@ -56,6 +56,14 @@ bot = commands.Bot(command_prefix = bot_command_prefix, intents = intents)
 async def on_ready():
   print(f'Bot is ready. logged in as {bot.user}')
 
+@bot.event
+async def on_message(message):
+  if message.author == bot.user:
+    return
+  
+  if message.content.lower() == "hi":
+    await message.channel.send("hello there!")
+
 
 
 # load cogs
