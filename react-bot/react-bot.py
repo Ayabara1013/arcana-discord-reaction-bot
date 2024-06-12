@@ -29,8 +29,8 @@ class ReactBot(commands.Cog):
       return
     
     # Check if the message content is "hi" (case-insensitive)
-    if message.content.lower() == "hi":
-      await message.channel.send("hello there!")
+    if message.content.lower() == "react":
+      await message.channel.send("success!")
 
     # if the message doesnt start with the command and the user is allowed
     ## for now, I will keep out the /arc_ check
@@ -70,10 +70,10 @@ class ReactBot(commands.Cog):
   # --------------------------------------------------
 
   @commands.command(name='react')
-  async def react_option(self, ctx, option = None):
+  async def react_option(self, ctx, option=None):
     if ctx.author == self.bot.user:
       return
-    
+
     if option is None:
       await ctx.send("dude you have to tell me something here...")
 
@@ -86,7 +86,7 @@ class ReactBot(commands.Cog):
 
     elif option == 'nope':
       await ctx.send('nope!')
-      
+
     elif option == 'test':
       await ctx.send('test successful! probably')
 
@@ -95,8 +95,17 @@ class ReactBot(commands.Cog):
   def extract_emojis(self, message_content):
     return ''.join(c for c in message_content if c in emoji.UNICODE_EMOJI)
 
+  # --------------------------------------------------
 
+  @commands.command(name='list')
+  async def list_emojis(self, ctx):
+    # Check if the channel has any reactions configured
+    if ctx.channel.id in self.reactions:
+      await ctx.send(f'Current emojis: {" ".join(self.reactions[ctx.channel.id])}')
+    else:
+      await ctx.send('No emojis configured for this channel.')
 
+  # --------------------------------------------------
 
 
 def setup(bot):
