@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import boto3
 from botocore.exceptions import ClientError
-import os
+import asyncio
 
 bot_command_prefix = "/arc "
 
@@ -79,17 +79,22 @@ async def bot_test(ctx):
   await ctx.channel.send('test successful from arcana-bot.py')
 
 
-# Load the cog (extension)
-initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module path
+# load the cog (extension)
+async def load_extensions():
+  initial_extensions = ['cogs.react-bot'] # Note: 'cogs.react-bot' is the module path
 
-if __name__ == '__main__':
   for extension in initial_extensions:
     try:
-      await bot.load_extension(extension)
+      bot.load_extension(extension)
       print(f'Loaded extension: {extension}')
     except Exception as e:
       print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
 
+# Asyncronous main function to run the bot
+async def main():
+  await bot.start(bot_token)
+  await load_extensions()
 
-# Run the bot
-bot.run(bot_token)
+# Run the bot using asyncio.run (Python 3.7+)
+if __name__ == '__main__':
+  asyncio.run(main())
