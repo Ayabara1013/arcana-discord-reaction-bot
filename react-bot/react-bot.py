@@ -39,6 +39,9 @@ class ReactBot(commands.Cog):
       for emoji in emojis:
         await message.add_reaction(emoji)
 
+    # Process other commands or messages
+    await self.bot.process_commands(message)
+
   # --------------------------------------------------
 
   @commands.Cog.listener()

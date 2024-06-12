@@ -64,6 +64,8 @@ async def on_message(message):
   if message.content.lower() == "hi":
     await message.channel.send("hello there!")
 
+  # Process other commands or messages
+  await bot.process_commands(message)
 
 
 # load cogs
