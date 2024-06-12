@@ -69,8 +69,8 @@ class ReactBot(commands.Cog):
 
   # --------------------------------------------------
 
-  @commands.command(name='react')
-  async def react_option(self, ctx, option=None):
+  @commands.command(name='react', pass_context = True)
+  async def react_option(self, ctx, option):
     if ctx.author == self.bot.user:
       return
 
