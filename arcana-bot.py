@@ -48,42 +48,48 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
 
+
 # initialize the bot with a command prefix and specified intents
 bot = commands.Bot(command_prefix=bot_command_prefix, intents=intents)
 
-# event handler for when the bot is ready
+
+#event handler for when the bot is ready
 @bot.event
 async def on_ready():
-    print(f'Bot is ready. logged in as {bot.user}')
+  print(f'Bot is ready. logged in as {bot.user}')
 
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
-        return
-    
-    if message.content.lower() == "hi":
-        await message.channel.send("hello there!")
+  if message.author == bot.user:
+    return
+  
+  if message.content.lower() == "hi":
+    await message.channel.send("hello there!")
 
-    # Process other commands or messages
-    await bot.process_commands(message)
+  # Process other commands or messages
+  await bot.process_commands(message)
+
+
 
 @bot.command(name='test')
 async def bot_test(ctx):
-    if ctx.author == bot.user:
-        return
-    
-    await ctx.send('test successful from arcana-bot.py')
+  if ctx.author == bot.user:
+    return
+  
+  await ctx.channel.send('test successful from arcana-bot.py')
+
 
 # Load the cog (extension)
-# initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module path
-bot.load_extension('cogs.react-bot')
+initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module path
 
-# if __name__ == '__main__':
-#     for extension in initial_extensions:
-#         try:
-#             print(f'Loaded extension: {extension}')
-#         except Exception as e:
-#             print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
+if __name__ == '__main__':
+  for extension in initial_extensions:
+    try:
+      bot.load_extension(extension)
+      print(f'Loaded extension: {extension}')
+    except Exception as e:
+      print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
 
-    # Run the bot
+
+# Run the bot
 bot.run(bot_token)
