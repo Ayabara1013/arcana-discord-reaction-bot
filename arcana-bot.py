@@ -75,15 +75,15 @@ async def bot_test(ctx):
     await ctx.send('test successful from arcana-bot.py')
 
 # Load the cog (extension)
-initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module path
+# initial_extensions = ['cogs.react-bot']  # Note: 'cogs.react-bot' is the module path
+bot.load_extension('cogs.react-bot')
 
-if __name__ == '__main__':
-    for extension in initial_extensions:
-        try:
-            bot.load_extension(extension)
-            print(f'Loaded extension: {extension}')
-        except Exception as e:
-            print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
+# if __name__ == '__main__':
+#     for extension in initial_extensions:
+#         try:
+#             print(f'Loaded extension: {extension}')
+#         except Exception as e:
+#             print(f'Failed to load extension {extension}. Error: {type(e).__name__} - {e}')
 
     # Run the bot
-    bot.run(bot_token)
+bot.run(bot_token)
