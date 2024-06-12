@@ -116,7 +116,7 @@ class ReactBot(commands.Cog):
     if ctx.author == self.bot.user:
       return
     
-    await ctx.channel.send('test successful from react-bot.py')
+    await self.ctx.channel.send('test successful from react-bot.py')
 
 async def setup(bot):
   await bot.add_cog(ReactBot(bot))
