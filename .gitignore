@@ -1,0 +1,8 @@
+# Ignore local-arcana-bot.py
+local-arcana-bot.py
+
+# Ignore any .pyc files (Python compiled files)
+*.pyc
+
+# Ignore logs
+*.log

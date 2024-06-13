@@ -118,5 +118,5 @@ class ReactBot(commands.Cog):
     
     await self.ctx.channel.send('test successful from react-bot.py')
 
-def setup(bot):
-  bot.add_cog(ReactBot(bot))
+async def setup(bot):
+  await bot.add_cog(ReactBot(bot))
