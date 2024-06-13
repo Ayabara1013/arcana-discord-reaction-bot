@@ -33,7 +33,7 @@ def get_secret():
         raise e
 
     secret = get_secret_value_response['SecretString']
-    return json.loads(secret)["bot_token"]
+    return secret
 
 # Get the bot token from AWS Secrets Manager
 bot_token = get_secret()
