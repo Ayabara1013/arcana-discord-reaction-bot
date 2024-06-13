@@ -7,6 +7,6 @@ local-arcana-bot.py
 # Ignore logs
 *.log
 
-
-cogs/__pycache__/
-
+# Ignore contents of __pycache__ directories under cogs
+cogs/**/__pycache__/
+cogs/__pycache__
