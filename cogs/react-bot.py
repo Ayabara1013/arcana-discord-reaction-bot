@@ -22,7 +22,7 @@ class ReactBot(commands.Cog):
 
   @commands.Cog.listener()
   async def on_message(self, message):
-    print('a message was sent')
+    # print('a message was sent')
 
     #ignore messages sent by the bot itself to prevent a loop
     if message.author == self.bot.user:
@@ -39,8 +39,8 @@ class ReactBot(commands.Cog):
       for emoji in emojis:
         await message.add_reaction(emoji)
 
-    # Process other commands or messages
-    await self.bot.process_commands(message)
+    # # Process other commands or messages
+    # await self.bot.process_commands(message)
 
   # --------------------------------------------------
 
@@ -108,15 +108,15 @@ class ReactBot(commands.Cog):
   # --------------------------------------------------
 
 
-  @commands.command(name='test')
+  @commands.command(name='test3')
   async def on_test(self, ctx):
-    print('a message was sent')
+    print('performing test3 on cogs.react-bot.py')
 
     #ignore messages sent by the bot itself to prevent a loop
     if ctx.author == self.bot.user:
       return
     
-    await self.ctx.channel.send('test successful from react-bot.py')
+    await ctx.channel.send('test successful from react-bot.py')
 
 async def setup(bot):
   await bot.add_cog(ReactBot(bot))
