@@ -40,7 +40,8 @@ bot_token = get_secret()
 
 
 # Print the bot token
-print("Bot Token:", bot_token, "\n")
+# print("Bot Token:", bot_token, "\n")
+print('im not going to print the token anymore lol')
 
 # --------------------------------------------------
 
