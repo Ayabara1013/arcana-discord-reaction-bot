@@ -17,6 +17,7 @@ class ReactBot(commands.Cog):
     self.bot = bot
     self.default_reactions = ["🔥", "1️⃣", "2️⃣", "3️⃣", "4️⃣"]
     self.reactions = {}
+    self.pin_reaction = "🔥"
 
   # --------------------------------------------------
 
@@ -62,11 +63,30 @@ class ReactBot(commands.Cog):
     # Now you have all the necessary objects to work with
     print(f"{user.name} reacted to message {message.id} with {payload.emoji}")
 
-    # # Check if the reaction is the fire emoji
-    if emoji.name == "🔥":
-      await channel.send(f"{user.name} reacted with 🔥")
-      await message.pin()
+    # ## if message.reactions == default_reactions: 
+    # # # Check if the reaction is the fire emoji
+    # if emoji.name == "🔥":
+    #   await channel.send(f"{user.name} reacted with 🔥")
+    #   await message.pin()
 
+    if emoji.name == self.pin_reaction:
+      # get the emojis tha should be on this message (channel-specific or default)
+      expected_emojis = self.reactions.get(message.channel.id, self.default_reactions)
+
+      # get all current reaction emojis on the message
+      current_reaction_emojis = [str(reaction.emoji) for reaction in message.reactions]
+
+      # check if the message has all the expected emojis
+      has_all_emojis = all(emoji in current_reaction_emojis for emoji in expected_emojis)
+
+      if has_all_emojis:
+        await channel.send(f"{user.name} reacted with {self.pin_reaction}")
+        await message.pin()
+      else:
+        print(f"Message {message.id} doesn't have all required emojis yet. Current: {current_reaction_emojis}, Expected: {expected_emojis}")
+
+
+        
   # --------------------------------------------------
 
   @commands.command(name='react', pass_context = True)
